@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -27,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         dbHelper = new DbHelper(getApplicationContext());
+
+        SearchView simpleSearchView=findViewById(R.id.simpleSearchView);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -46,25 +49,37 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //Display Contact cards
-        ArrayList<Contact> contacts = dbHelper.getAllData();
-        ContactsAdapter ca = new ContactsAdapter(this, contacts);
-        ListView list = findViewById(R.id.contactsList);
+        final ArrayList<Contact> contacts = dbHelper.getAllData();
+        final ContactsAdapter ca = new ContactsAdapter(this, contacts);
+        final ListView list = findViewById(R.id.contactsList);
         list.setAdapter(ca);
 
-        /*View contact_view = getLayoutInflater().inflate(R.layout.contact, null);
+        simpleSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
 
-        ArrayList<Contact> contacts = dbHelper.getAllData();
-        for (Contact c : contacts){
-            CardView card = new CardView(context);
-            // Set the CardView layoutParams
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-            );
-            card.setLayoutParams(params);
+                //ca.notifyDataSetChanged();
+                return false;
+            }
 
-        }*/
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                ca.filter(newText);
+                return false;
+            }
+        });
+
     }
+
+    /*public ArrayList<Contact> filter(ArrayList<Contact> contacts, String name){
+        ArrayList<Contact> temp  = new ArrayList<>();
+        for (Contact c : contacts){
+            if (c.name.contains(name.toLowerCase())){
+                temp.add(c);
+            }
+        }
+        return  temp;
+    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

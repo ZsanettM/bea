@@ -1,6 +1,7 @@
 package com.example.bea;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,8 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+
+import static android.content.ContentValues.TAG;
 
 public class ContactsAdapter extends ArrayAdapter<Contact> {
 
@@ -43,5 +46,20 @@ public class ContactsAdapter extends ArrayAdapter<Contact> {
         notes.setText(contact.note);
 
         return view;
+    }
+
+    public void filter(String name){
+        ArrayList<Contact> temp  = new ArrayList<>();
+        for (Contact c : this.contacts){
+            if (c.name.contains(name.toLowerCase())){
+                temp.add(c);
+                //Log.d(TAG, "filter: "+c.name+" added");
+            }
+        }
+
+        this.clear();
+        //Log.d(TAG, "filter: "+temp.get(0).address);
+        this.contacts.addAll(temp);
+        this.notifyDataSetChanged();
     }
 }
