@@ -16,6 +16,7 @@ public class ContactsAdapter extends ArrayAdapter<Contact> {
 
     private ContactsAdapter adapter;
     private ArrayList<Contact> contacts;
+    private ArrayList<Contact> contactsAllTemp = new ArrayList<>();
 
     public ContactsAdapter(Context c, ArrayList<Contact> items){
         super(c, 0, items);
@@ -49,6 +50,10 @@ public class ContactsAdapter extends ArrayAdapter<Contact> {
     }
 
     public void filter(String name){
+        if(contactsAllTemp.isEmpty()) {
+            this.contactsAllTemp.addAll(contacts);
+        }
+
         ArrayList<Contact> temp  = new ArrayList<>();
         for (Contact c : this.contacts){
             if (c.name.contains(name.toLowerCase())){
@@ -60,6 +65,13 @@ public class ContactsAdapter extends ArrayAdapter<Contact> {
         this.clear();
         //Log.d(TAG, "filter: "+temp.get(0).address);
         this.contacts.addAll(temp);
+        this.notifyDataSetChanged();
+    }
+
+    public void clearSearch(){
+        this.clear();
+        this.contacts.addAll(contactsAllTemp);
+        Log.i("CLEAR", Integer.toString(contacts.size()));
         this.notifyDataSetChanged();
     }
 }

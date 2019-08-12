@@ -57,8 +57,6 @@ public class MainActivity extends AppCompatActivity {
         simpleSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-
-                //ca.notifyDataSetChanged();
                 return false;
             }
 
@@ -69,7 +67,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        simpleSearchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                ca.clearSearch();
+                return false;
+            }
+        });
+
     }
+
 
     /*public ArrayList<Contact> filter(ArrayList<Contact> contacts, String name){
         ArrayList<Contact> temp  = new ArrayList<>();
