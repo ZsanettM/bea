@@ -126,11 +126,21 @@
                 android:orientation="horizontal">
 
                 <ImageButton
+                    android:id="@+id/btn_edit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:backgroundTint="@color/lightGreen"
+                    android:contentDescription="edit"
+                    app:srcCompat="@android:drawable/ic_menu_edit" />
+
+                <ImageButton
                     android:id="@+id/btn_delete"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="right|center_vertical"
-                    android:layout_marginEnd="5dp"
+                    android:layout_weight="2"
+                    android:backgroundTint="@color/lightPurple"
+                    android:contentDescription="delete"
                     app:srcCompat="@android:drawable/ic_menu_delete"
                     tools:layout_editor_absoluteX="325dp"
                     tools:layout_editor_absoluteY="146dp" />

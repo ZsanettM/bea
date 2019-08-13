@@ -1,6 +1,7 @@
 package com.example.bea;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,6 +39,7 @@ public class ContactsAdapter extends ArrayAdapter<Contact> {
 
         final TextView name, address, number, notes;
         final ImageButton deleteBtn = view.findViewById(R.id.btn_delete);
+        final ImageButton editBtn = view.findViewById(R.id.btn_edit);
 
         name = view.findViewById(R.id.name_tv);
         address = view.findViewById(R.id.address_tv);
@@ -49,6 +51,7 @@ public class ContactsAdapter extends ArrayAdapter<Contact> {
         number.setText(contact.number);
         notes.setText(contact.note);
 
+        //Delete contact
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,6 +61,20 @@ public class ContactsAdapter extends ArrayAdapter<Contact> {
                     contactsAllTemp.remove(contact);
                 }
                 adapter.notifyDataSetChanged();
+
+            }
+        });
+
+        //Edit contact
+        editBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent editIntent = new Intent(getContext(), AddContact.class);
+                editIntent.putExtra("name", contact.name);
+                editIntent.putExtra("address", contact.address);
+                editIntent.putExtra("number", contact.number);
+                editIntent.putExtra("note", contact.note);
+                getContext().startActivity(editIntent);
 
             }
         });

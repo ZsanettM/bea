@@ -73,4 +73,17 @@ public class DbHelper extends SQLiteOpenHelper {
         db.delete(DB_TABLE, query, null);
     }
 
+    //Edit data
+    public void editContact(Contact c){
+        SQLiteDatabase db = getWritableDatabase();
+        String query = "Name= '" + c.name + "'";
+
+        ContentValues row = new ContentValues();
+        row.put(this.COLUMNS[0], c.name);
+        row.put(this.COLUMNS[1], c.address);
+        row.put(this.COLUMNS[2], c.number);
+        row.put(this.COLUMNS[3], c.note);
+        db.update(DB_TABLE, row, query, null);
+    }
+
 }
