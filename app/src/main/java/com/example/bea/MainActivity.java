@@ -1,5 +1,6 @@
 package com.example.bea;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,11 +26,21 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
     private DbHelper dbHelper;
 
+    int ADD_CONTACT = 100;
+    ContactsAdapter ca;
+    ArrayList<Contact> contacts;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         dbHelper = new DbHelper(getApplicationContext());
+
+        //Display Contact cards
+        contacts = dbHelper.getAllData();
+        ca = new ContactsAdapter(this, contacts);
+        final ListView list = findViewById(R.id.contactsList);
+        list.setAdapter(ca);
 
         SearchView simpleSearchView=findViewById(R.id.simpleSearchView);
 
@@ -46,15 +57,10 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 //Start add "client contact" activity
-                startActivity(addIntent);
+                startActivityForResult(addIntent, ADD_CONTACT);
             }
         });
 
-        //Display Contact cards
-        final ArrayList<Contact> contacts = dbHelper.getAllData();
-        final ContactsAdapter ca = new ContactsAdapter(this, contacts);
-        final ListView list = findViewById(R.id.contactsList);
-        list.setAdapter(ca);
 
         simpleSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -72,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
         simpleSearchView.setOnCloseListener(new SearchView.OnCloseListener() {
             @Override
             public boolean onClose() {
-                ca.clearSearch();
+                ca.refreshScreen();
                 return false;
             }
         });
@@ -90,6 +96,21 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == ADD_CONTACT) {
+
+
+
+        }
+    }//onActivityResult
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        ca.refreshScreen();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

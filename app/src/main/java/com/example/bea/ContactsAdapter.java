@@ -109,4 +109,10 @@ public class ContactsAdapter extends ArrayAdapter<Contact> {
         this.notifyDataSetChanged();
     }
 
+    public void refreshScreen(){
+        contacts.clear();
+        contacts.addAll(helper.getAllData());
+        this.notifyDataSetChanged();
+    }
+
 }

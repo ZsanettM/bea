@@ -1,5 +1,6 @@
 package com.example.bea;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -46,6 +47,9 @@ public class AddContact extends AppCompatActivity {
                 else {
                     dbHelper.addToTable(contact);
                 }
+
+                Intent returnIntent = new Intent();
+                setResult(Activity.RESULT_OK, returnIntent);
                 finish();
             }
         });
