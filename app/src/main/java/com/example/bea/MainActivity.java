@@ -13,6 +13,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SearchView;
@@ -74,19 +76,20 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+/*
+        int clearID = simpleSearchView.getContext().getResources().getIdentifier("android:id/search_close_btn", null, null);
+        ImageView clearSearch = findViewById(clearID);
+
+        clearSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                ca.clearSearch();
+            }
+        }); */
 
     }
 
-
-    /*public ArrayList<Contact> filter(ArrayList<Contact> contacts, String name){
-        ArrayList<Contact> temp  = new ArrayList<>();
-        for (Contact c : contacts){
-            if (c.name.contains(name.toLowerCase())){
-                temp.add(c);
-            }
-        }
-        return  temp;
-    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

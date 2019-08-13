@@ -34,6 +34,7 @@ public class ContactsAdapter extends ArrayAdapter<Contact> {
         if (view == null){
             view = LayoutInflater.from(getContext()).inflate(R.layout.contact, parent, false);
         }
+        this.notifyDataSetChanged();
 
         final TextView name, address, number, notes;
         final ImageButton deleteBtn = view.findViewById(R.id.btn_delete);
@@ -71,7 +72,7 @@ public class ContactsAdapter extends ArrayAdapter<Contact> {
 
         ArrayList<Contact> temp  = new ArrayList<>();
         for (Contact c : this.contacts){
-            if (c.name.contains(name.toLowerCase())){
+            if (c.name.toLowerCase().contains(name.toLowerCase())){
                 temp.add(c);
                 //Log.d(TAG, "filter: "+c.name+" added");
             }
@@ -87,6 +88,7 @@ public class ContactsAdapter extends ArrayAdapter<Contact> {
         this.clear();
         this.contacts.addAll(contactsAllTemp);
         Log.i("CLEAR", Integer.toString(contacts.size()));
+        this.contactsAllTemp.clear();
         this.notifyDataSetChanged();
     }
 

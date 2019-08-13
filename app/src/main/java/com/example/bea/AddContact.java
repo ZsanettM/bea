@@ -31,6 +31,7 @@ public class AddContact extends AppCompatActivity {
                 contact = new Contact(name.getText().toString(),addr.getText().toString(),num.getText().toString(),note.getText().toString());
 
                 dbHelper.addToTable(contact);
+
                 finish();
             }
         });
