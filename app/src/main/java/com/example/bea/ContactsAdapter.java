@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -35,6 +36,7 @@ public class ContactsAdapter extends ArrayAdapter<Contact> {
         }
 
         final TextView name, address, number, notes;
+        final ImageButton deleteBtn = view.findViewById(R.id.btn_delete);
 
         name = view.findViewById(R.id.name_tv);
         address = view.findViewById(R.id.address_tv);
@@ -45,6 +47,19 @@ public class ContactsAdapter extends ArrayAdapter<Contact> {
         address.setText(contact.address);
         number.setText(contact.number);
         notes.setText(contact.note);
+
+        deleteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                helper.removeContact(contact);
+                contacts.remove(contact);
+                if (contactsAllTemp.contains(contact)) {
+                    contactsAllTemp.remove(contact);
+                }
+                adapter.notifyDataSetChanged();
+
+            }
+        });
 
         return view;
     }
@@ -74,4 +89,5 @@ public class ContactsAdapter extends ArrayAdapter<Contact> {
         Log.i("CLEAR", Integer.toString(contacts.size()));
         this.notifyDataSetChanged();
     }
+
 }

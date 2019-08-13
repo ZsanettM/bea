@@ -66,5 +66,11 @@ public class DbHelper extends SQLiteOpenHelper {
         return r;
     }
 
+    //Remove data
+    public void removeContact(Contact c){
+        SQLiteDatabase db = getWritableDatabase();
+        String query = "Name= '" + c.name + "' AND Number= '" + c.number +"'";
+        db.delete(DB_TABLE, query, null);
+    }
 
 }
