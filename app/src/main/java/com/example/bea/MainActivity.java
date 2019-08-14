@@ -83,17 +83,7 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
-/*
-        int clearID = simpleSearchView.getContext().getResources().getIdentifier("android:id/search_close_btn", null, null);
-        ImageView clearSearch = findViewById(clearID);
 
-        clearSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                ca.clearSearch();
-            }
-        }); */
 
     }
 
