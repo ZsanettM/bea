@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                ca.refreshScreen();
                 ca.filter(newText);
                 return false;
             }
