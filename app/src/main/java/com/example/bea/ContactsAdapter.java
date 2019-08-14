@@ -2,6 +2,7 @@ package com.example.bea;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,7 +52,7 @@ public class ContactsAdapter extends ArrayAdapter<Contact> {
         number.setText(contact.number);
         notes.setText(contact.note);
 
-        //Delete contact
+        //Delete contact - button press
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,7 +66,7 @@ public class ContactsAdapter extends ArrayAdapter<Contact> {
             }
         });
 
-        //Edit contact
+        //Edit contact - button press
         editBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,6 +77,24 @@ public class ContactsAdapter extends ArrayAdapter<Contact> {
                 editIntent.putExtra("note", contact.note);
                 getContext().startActivity(editIntent);
 
+            }
+        });
+
+        //Open GoogleMaps when clicked on address
+        address.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String  address = contact.address;
+                        address = address.replace(",","%2C");
+                        address = address.replace(" ", "%20");
+                String uri = "geo:0,0?q="+ address;
+                Log.d("URI", uri);
+
+                Intent mapIntent = new Intent(Intent.ACTION_VIEW);
+                mapIntent.setData(Uri.parse(uri));
+                if (mapIntent.resolveActivity(getContext().getPackageManager() )!= null){
+                    getContext().startActivity(mapIntent);
+                }
             }
         });
 
